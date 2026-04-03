@@ -13,18 +13,26 @@ print(date)
 # main menu list
 main_menu_list =(
     "add new entry",
+    "list",
     "check balance summaray",
     "monthly transactions",
     "catagory wise summary",
+    "add new..."
     )
 
 # new entry list
 # typelist 
-type_list = ("transfer", "debit", "credit")
+type_list = ["transfer", "debit", "credit"]
 # catlist
-cat_list = ("food", "bus")
-
-
+cat_list = ["food", "bus"]
+#account list
+acc_list = ["bank/UPI", "cash"]
+#from to acc
+acc_t_list = []
+for i in range(0, len(acc_list)):
+    for j in range(0, len(acc_list)):
+        if not i == j:
+            acc_t_list.append(f'{acc_list[i]} => {acc_list[j]}')
 
 # the question template
 def question(key, msg, choices):
@@ -54,16 +62,32 @@ def main_menu():
         cat_sum()
     elif action["menu_choise"] == "add new entry":
         add_new_entry()
+    elif action["menu_choise"] == "list":
+        listitems()
         
 def add_new_entry():
+    #1 TYPE
     transtype = question("transtype", "transfer debit or credit?", type_list)
+    #2 AMOUNT
     amount = questext("amount", "the amount")
-    print(amount)
+    #3 CAREGORY        
     if not transtype["transtype"] == "transfer":
         category = question("category", "choose category", cat_list)
-        
-
-
+    else:
+        category = {"category":"-"}
+    #4 ACCOUNT
+    if not transtype["transtype"] == "transfer":
+        account = question("account", "account?", acc_list)
+    else:
+        account =  question("account", "from where to where?", acc_t_list)
+    #5 COMMENT
+    comment = questext("comment", "Add comment")
+    #updating the entry to a dict
+    entry = {**transtype, **category, **amount, **account, **comment}
+    print(entry)
+    with open("budgetfile.json", mode="w", encoding="utf-8") as file:
+            json.dump(entry, file)
+    return entry
 
 # check for existing json file
 def readwrite ():
@@ -73,10 +97,12 @@ def readwrite ():
         print('file found')
         print(file)
         print(datetime.now())
+        
+
     else:
         print("no relevent file found \n creating new json file")
         
-        
+readwrite()
 main_menu()
 # get info
 # store info
