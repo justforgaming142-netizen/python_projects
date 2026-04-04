@@ -1,1 +1,47 @@
-{"transtype": "transfer", "category": "-", "amount": "3", "account": "bank/UPI => cash", "comment": "3"}
+[
+  {
+    "04/04/26 (09:57:01)": {
+      "transtype": "transfer",
+      "category": "-",
+      "amount": "2",
+      "account": "bank/UPI => cash",
+      "comment": "e"
+    }
+  },
+  {
+    "04/04/26 (09:57:15)": {
+      "transtype": "credit",
+      "category": "food",
+      "amount": "24",
+      "account": "bank/UPI",
+      "comment": "ji"
+    }
+  },
+  {
+    "04/04/26 (10:05:57)": {
+      "transtype": "debit",
+      "category": "Salary",
+      "amount": "23",
+      "account": "bank/UPI",
+      "comment": "ed"
+    }
+  },
+  {
+    "04/04/26 (10:34:08)": {
+      "transtype": "debit",
+      "category": "Salary",
+      "amount": "2",
+      "account": "bank/UPI",
+      "comment": "e"
+    }
+  },
+  {
+    "04/04/26 (10:37:25)": {
+      "transtype": "debit",
+      "category": "Salary",
+      "amount": "4000",
+      "account": "cash",
+      "comment": "f"
+    }
+  }
+]

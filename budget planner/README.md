@@ -11,6 +11,12 @@ The main features it intends to have are:
 date: 30-03-26
 The last update added many lines of code and introduced to libraries: inquirer and datetime.
 It also added a few functions that oparate as the main menu. The main goal now is to make a proper json entry and from there will focus on adding the other functionalites.
+
 date: 02-04-26
 finished the add new entry def
 finaly this can write a simple json formated string to a .json file.
+
+date:04-04-26
+polished add_new_entry
+formated the entry into date:entry format.
+added balanceact which will print total income, expenses, and balance.

@@ -4,6 +4,7 @@ from datetime import datetime
 import inquirer
 
 date = datetime.now()
+dt = datetime.now().strftime("%d/%m/%y (%H:%M:%S)")
 formatted_month = date.strftime("%B")
 print(formatted_month)
 print(date)
@@ -24,7 +25,8 @@ main_menu_list =(
 # typelist 
 type_list = ["transfer", "debit", "credit"]
 # catlist
-cat_list = ["food", "bus"]
+cat_list_cre = ["food", "bus"]
+cat_list_deb = ["Salary", "Borrowed"]
 #account list
 acc_list = ["bank/UPI", "cash"]
 #from to acc
@@ -39,6 +41,13 @@ def question(key, msg, choices):
     ques =[ inquirer.List(key,
                     msg,
                     choices,),]
+    ans=inquirer.prompt(ques)
+    return ans
+
+def quesint(key, msg):
+    ques =[ inquirer.Text(key,
+                     message=msg,
+                     validate=lambda _, x: x.isdigit())]
     ans=inquirer.prompt(ques)
     return ans
 
@@ -69,47 +78,69 @@ def add_new_entry():
     #1 TYPE
     transtype = question("transtype", "transfer debit or credit?", type_list)
     #2 AMOUNT
-    amount = questext("amount", "the amount")
+    amount = quesint("amount", "the amount")
     #3 CAREGORY        
-    if not transtype["transtype"] == "transfer":
-        category = question("category", "choose category", cat_list)
-    else:
+    if transtype["transtype"] == "transfer":
         category = {"category":"-"}
+    elif transtype["transtype"] == "debit":
+        category = question("category", "choose category", cat_list_deb)
+    elif transtype["transtype"] == "credit":
+        category = question("category", "choose category", cat_list_cre)
+
     #4 ACCOUNT
-    if not transtype["transtype"] == "transfer":
-        account = question("account", "account?", acc_list)
-    else:
+    if transtype["transtype"] == "transfer":
         account =  question("account", "from where to where?", acc_t_list)
+    else:
+        account = question("account", "account?", acc_list)
     #5 COMMENT
     comment = questext("comment", "Add comment")
     #updating the entry to a dict
-    entry = {**transtype, **category, **amount, **account, **comment}
+    value = {**transtype, **category, **amount, **account, **comment}
+    entry = {dt:value}
     print(entry)
-    with open("budgetfile.json", mode="w", encoding="utf-8") as file:
-            json.dump(entry, file)
-    return entry
 
-# check for existing json file
-def readwrite ():
-    cwd = Path.cwd()
-    file = Path(cwd/"budgetfile.json")
+    # append to the file
+    file = Path("budgetfile.json")
     if file.is_file():
-        print('file found')
-        print(file)
-        print(datetime.now())
-        
-
+        with open(file, "r") as f:
+            data = json.load(f)
     else:
-        print("no relevent file found \n creating new json file")
-        
-readwrite()
-main_menu()
-# get info
-# store info
-# write info
+        data = []
+    try:
+        data.append(entry)
+    except:
+        data.update(entry)
 
-        
-        
+
+    with open(file, "w") as f:
+        json.dump(data, f, indent=2)
+
+def balanceact():
+    file = Path("budgetfile.json")
+    if file.is_file():
+        total_balance = 0
+        total_income = 0
+        total_expense = 0
+        with open(file, "r") as f:
+            data = json.load(f)
+        for item in data:
+            value = next(iter(item.values()))
+            print(value)
+            if value["transtype"] == "credit":
+                total_expense = total_expense+int(value["amount"])
+                total_balance = total_balance-int(value["amount"])
+            if value["transtype"] == "debit":
+                total_income = total_income+int(value["amount"])
+                total_balance = total_balance+int(value["amount"])
+                
+        print(f'total income = {total_income}')
+        print(f'total expenses = {total_expense}')
+        print(f'total balance = {total_balance}')
+    else:
+        print("there are no valide entries")
+
+
+main_menu()
 
 
 # data format/template
