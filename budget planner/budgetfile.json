@@ -43,5 +43,14 @@
       "account": "cash",
       "comment": "f"
     }
+  },
+  {
+    "23/04/26 (13:04:01)": {
+      "transtype": "transfer",
+      "category": "-",
+      "amount": "234",
+      "account": "bank/UPI => cash",
+      "comment": "dsfs"
+    }
   }
 ]
