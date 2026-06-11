@@ -18,4 +18,6 @@ if confirm == "n" or confirm == "":
     None
 elif confirm == "y":
     for i in items:
-        i.move("mv_it_to")
+        dest = Path(f"{cwd}/{mv_it_to}/{i.name}")
+        dest.parent.mkdir(exist_ok=True)
+        i.replace(dest)
