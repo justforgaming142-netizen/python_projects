@@ -51,7 +51,7 @@ ss = PromptSession(
 
 
 print(HTML("<muted>Current working directory is...</muted>"), style=pstyle)
-print(Path().cwd())
+print(HTML("<muted>Path().cwd()</muted>"), style=pstyle)
 
 
 jfile=Path().joinpath(Path().cwd(), 'btracker.json')
@@ -70,17 +70,13 @@ else:
     with open(jfile, "r") as file:
         data = json.load(file)
 
-print(data, style=pstyle)
 
 for option in main_menu:
     print(option, style=pstyle)
 label = 'hello world'
-ss.prompt(HTML(f"<prompt>{label} ›</prompt> "))
+ss.prompt(HTML(f"<prompt>{label} ›</prompt> "),  completer=WordCompleter(main_menu), complete_while_typing=True)
 
 usrr = ss.prompt(message="What to you want to do?", completer=WordCompleter(main_menu), complete_while_typing=True) 
-# usr = input("what to do...?")
-
-# usrr = main_menu[int(usr)-1]
 
 if usrr == 'total Balance':
     sum_total=0
@@ -99,10 +95,6 @@ elif usrr == "add an entry":
     temp_data.update({"date": current_time, "type": tran_type, "amount": amount})
     print(temp_data, style=pstyle)
     cons = ss.prompt(message='confirms?')
-    # tran_type = input('credit or debit?…')
-    # amount = input('how much?')
-    # print(temp_data)
-    # cons = input("confirm the following data?")
     if cons == 'y':
         data['entries'].append(temp_data)
     json_str = json.dumps(data, indent=4)
