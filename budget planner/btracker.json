@@ -6,27 +6,29 @@
     ],
     "entries": [
         {
-            "date": "06/07/2026",
-            "time": "10:00",
-            "type": "debited",
+            "date": "2026-07-18 13:26:26",
+            "type": "credit",
             "amount": "300"
         },
         {
-            "date": "05/07/2026",
-            "time": "10:00",
-            "type": "paid",
+            "date": "2026-07-18 13:26:37",
+            "type": "debit",
             "amount": "100"
         },
         {
-            "date": "06/07/2026",
-            "time": "10:00",
-            "type": "paid",
-            "amount": "500"
+            "date": "2026-07-18 13:26:48",
+            "type": "debit",
+            "amount": "55"
         },
         {
-            "date": "2026-07-18 13:19:05",
+            "date": "2026-07-18 15:25:58",
             "type": "credit",
             "amount": "600"
+        },
+        {
+            "date": "2026-07-18 15:26:47",
+            "type": "debit",
+            "amount": "10010"
         }
     ]
 }
