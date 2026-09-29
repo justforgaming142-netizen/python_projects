@@ -1,0 +1,16 @@
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pathsort"
+version = "0.1.0"
+description = "Self made app that should short apps files into aptly named folders"
+authors = [{ name = "Daniel", email = "s.daniel.connect@example.com" }]
+readme = "README.md"
+requires-python = ">=3.8"
+
+[project.scripts]
+# This is the command users will type after installing.
+# It points to a function, e.g., "main()" in the "main.py" file.
+your-app-command = "your_project_name.main:main"

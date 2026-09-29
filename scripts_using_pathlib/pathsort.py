@@ -17,6 +17,7 @@ file_map = {
     ".txt": "documents",
     ".rtf": "documents",
     ".odt": "documents",
+    ".md":"documents",
 
     # presentations
     ".ppt": "ppt",
